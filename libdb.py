@@ -2,6 +2,7 @@
 
 from elftools.elf.elffile import ELFFile
 from elftools.elf.sections import SymbolTableSection
+from elftools.elf.enums import ENUM_ST_INFO_TYPE
 
 class MyELFFile(ELFFile):
   def __init__(self, fd):
@@ -18,6 +19,10 @@ class MyELFFile(ELFFile):
         if sym.name == name:
           return sym
 
+  def symbol_is_ifunc(self, sym):
+    #TODO check if the architecture supports IFUNCS
+    return sym['st_info'].type == "STT_LOOS"
+
 if __name__ == "__main__":
   import sys
 
@@ -32,4 +37,6 @@ if __name__ == "__main__":
   if sym == None:
     print "Symbol {} not found.".format(sym_name)
     exit(1)
+
+  print "{} is {}an IFUNC".format(sym.name, "" if libc_elf.symbol_is_ifunc(sym) else "not ")
 
