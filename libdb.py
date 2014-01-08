@@ -19,6 +19,16 @@ class MyELFFile(ELFFile):
         if sym.name == name:
           return sym
 
+  def get_segment_at(self, addr):
+    for seg in self.iter_segments():
+      if seg['p_type'] != "PT_LOAD":
+        continue
+
+      vaddr = seg['p_vaddr']
+      filesz = seg['p_vaddr']
+      if vaddr <= addr < vaddr+filesz:
+        return seg
+
   def symbol_is_ifunc(self, sym):
     #TODO check if the architecture supports IFUNCS
     return sym['st_info'].type == "STT_LOOS"
@@ -39,4 +49,6 @@ if __name__ == "__main__":
     exit(1)
 
   print "{} is {}an IFUNC".format(sym.name, "" if libc_elf.symbol_is_ifunc(sym) else "not ")
+
+  code = libc_elf.get_segment_at(sym['st_value']).data()
 
