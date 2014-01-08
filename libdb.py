@@ -10,7 +10,7 @@ class MyELFFile(ELFFile):
 
   def get_symbol(self, name):
     """Lookup a symbol by its name."""
-    for section in libc_elf.iter_sections():
+    for section in self.iter_sections():
       if not isinstance(section, SymbolTableSection):
           continue
 
