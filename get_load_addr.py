@@ -24,7 +24,7 @@ if __name__ == "__main__":
   filename = sys.argv[1]
   func_list = chunks(sys.argv[2:], 2)
 
-  libc_elf = libdb.MyELFFile(open(filename, "r"))
+  libc_elf = libdb.ELFFile(open(filename, "r"))
 
   bin_base = 0
 

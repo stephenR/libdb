@@ -6,9 +6,9 @@ from elftools.elf.enums import ENUM_ST_INFO_TYPE
 
 INVALID_ADDR = -1
 
-class MyELFFile(ELFFile):
+class ELFFile(ELFFile):
   def __init__(self, fd):
-    super(MyELFFile, self).__init__(fd)
+    super(ELFFile, self).__init__(fd)
     self._load_addr = INVALID_ADDR
 
   def get_symbol(self, name):
