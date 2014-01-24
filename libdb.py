@@ -72,7 +72,7 @@ def chunks(l, n):
 if __name__ == "__main__":
   import sys
 
-  if len(sys.argv) < 6 or (len(sys.argv) % 2) != 0:
+  if len(sys.argv) < 4 or (len(sys.argv) % 2) != 0:
     fail("Invalid argument count.", 1)
 
   filename = sys.argv[1]
